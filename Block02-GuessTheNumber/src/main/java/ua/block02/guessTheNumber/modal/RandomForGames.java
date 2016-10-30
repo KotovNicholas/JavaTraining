@@ -29,7 +29,6 @@ public class RandomForGames {
         min = checkRandom.getMinCheck();
         max = checkRandom.getMaxCheck();
 
-
         int numberRand = randomClass.nextInt(max-min+1)+min;
 
         return numberRand;
