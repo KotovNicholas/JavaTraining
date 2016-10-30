@@ -80,7 +80,7 @@ public class Messages {
     }
 
     public static void newLine(){
-        System.out.println("------------------------");
+        System.out.println("------------------------------");
         System.out.println();
     }
 
