@@ -8,8 +8,15 @@ import ua.block02.guessTheNumber.modal.GameGuess;
 public class Main {
     public static void main(String[] args) {
 
-       GameGuess newGame = new GameGuess();
-        newGame.start();
+       /*GameGuess newGame = new GameGuess();
+        newGame.start();*/
+
+        // Initialization
+        Model model = new Model();
+        View view = new View();
+        Controller controller = new Controller(model, view);
+        // Run
+        controller.processUser();
 
     }
 }
