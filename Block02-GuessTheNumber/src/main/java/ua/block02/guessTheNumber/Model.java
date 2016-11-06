@@ -9,15 +9,15 @@ import java.util.Random;
  */
 public class Model {
     /**
-     *
+     *min barrier of range
      */
     private int minBarrier;
     /**
-     *
+     *max barrier of range
      */
     private int maxBarrier;
     /**
-     *
+     *random number
      */
     private int secretValue;
 
@@ -48,6 +48,8 @@ public class Model {
      * @param maxBarrier
      */
     public void setPrimaryBarrier(int minBarrier, int maxBarrier){
+
+
         this.minBarrier = minBarrier; // check
         this.maxBarrier = maxBarrier;
     }
@@ -56,27 +58,21 @@ public class Model {
      *
      */
     public void setSecretValue() {
-        secretValue = (int)Math.ceil(Math.random() * (maxBarrier - minBarrier -1) + minBarrier);
 
-        secretValue = rand(minBarrier, maxBarrier);
+        rand(minBarrier, maxBarrier);
 
     }
 
-    public static int rand(){
-        return rand(0,Integer.MAX_VALUE);
+    public void rand(){
+        rand(0,Integer.MAX_VALUE);
     }
 
-    public static int rand(int min, int max){
+    public void rand(int min, int max){
 
-        ControllerRandom checkRandom =  ControllerRandom.getThisClass();
+        Random randomClass = new Random();
 
+        secretValue = randomClass.nextInt(maxBarrier - minBarrier -1)+minBarrier;
 
-        min = checkRandom.getMinCheck();
-        max = checkRandom.getMaxCheck();
-
-        int numberRand = randomClass.nextInt(max-min+1)+min;
-
-        return numberRand;
     }
 
 

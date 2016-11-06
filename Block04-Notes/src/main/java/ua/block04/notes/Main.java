@@ -1,9 +1,7 @@
-package ua.block02.guessTheNumber;
-
-import ua.block02.guessTheNumber.modal.GameGuess;
+package ua.block04.notes;
 
 /**
- * Created by Nicholas Kotov on 30.10.2016.
+ * Created by Nicholas Kotov on 06.11.2016.
  */
 public class Main {
     public static void main(String[] args) {
@@ -14,6 +12,7 @@ public class Main {
         Controller controller = new Controller(model, view);
         // Run
         controller.processUser();
+
 
     }
 }
