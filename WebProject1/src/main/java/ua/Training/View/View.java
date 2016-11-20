@@ -1,7 +1,7 @@
-package ua.Training.View;
+package ua.training.view;
 
-import ua.Training.Model.Disk;
-import ua.Training.Model.Track;
+import ua.training.model.Disk;
+import ua.training.model.entity.aTrack;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,6 @@ public class View {
             concatString = concatString.append(v);
         }
         printMessage(new String(concatString));
-        //System.out.println(concatString);
     }
 
     /**
@@ -56,9 +55,8 @@ public class View {
         System.out.println("===============================================");
     }
 
-    public void printTracks (ArrayList<Track> tracks){
-        for (Track i : tracks) {System.out.println(i.toString());        }
-
+    public void printTracks (ArrayList<aTrack> tracks){
+        tracks.forEach(System.out::println);
     }
 
 

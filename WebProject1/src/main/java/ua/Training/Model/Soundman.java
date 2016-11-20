@@ -1,8 +1,12 @@
-package ua.Training.Model;
+package ua.training.model;
+
+import ua.training.model.entity.aTrack;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Kontov Nicholas on 16.11.2016.
@@ -22,57 +26,49 @@ public class Soundman {
     }
 
     /**
-     * Rearrange songs in style
-     * @param disk - Disc where the compositions changes
-     * @return disc
+     * sort tracks
+      * @param disk
+     * @param sort
+     * @return
      */
-    public Disk sortStyle (Disk disk){
+    public Disk sortTracks (Disk disk, sortTrack sort){
 
-        ArrayList<Track> tracks = disk.getTracks();
-
-        Collections.sort(tracks, new Comparator<Track>() {
-            public int compare(Track o1, Track o2) {
-                return o1.getGenre().compareTo(o2.getGenre());
-            }
-
-        });
-
+        ArrayList<aTrack> tracks = disk.getTracks();
+        Collections.sort(tracks, Comparator.comparing(x -> x.getField(sort)));
         disk.setTracks(tracks);
 
         return disk;
-
-
     }
 
-    /**
-     * Search tracks the length of playback
-     *
-     * @param songs - tracks for search
-     * @return songs
-     */
-    public ArrayList<Track> findSong(ArrayList<Track> songs, Integer diapasonSecFirst, Integer diapasonSecSecond) {
 
-        ArrayList<Track> result = new ArrayList<>();
-        Integer diapasonCurrent;
-        for (Track i : songs){
-            diapasonCurrent = i.getTrackLength();
-            if (diapasonCurrent>diapasonSecFirst & diapasonCurrent<diapasonSecSecond){
-                result.add(i);
+
+    /**
+     *
+     * @param list
+     * @param predicate
+     * @return
+     */
+    public static ArrayList<aTrack> findSongPredicate(List<aTrack> list, Predicate<Integer> predicate) {
+        ArrayList<aTrack> result = new ArrayList<>();
+
+        for(aTrack n: list)  {
+            if(predicate.test(n.getTrackLength())) {
+                result.add(n);
             }
         }
-
 
         return result;
     }
 
+
     /**
-     * Burn to disc songs
+     * create to disc songs
      *
      * @param nameOfDisc
      * @param tracks
      * @return Disk
      */
-    public Disk burnToDiscSongs(String nameOfDisc, ArrayList<Track> tracks) {
+    public Disk createToDiscSongs(String nameOfDisc, ArrayList<aTrack> tracks) {
         return new Disk(nameOfDisc, tracks);
     }
 

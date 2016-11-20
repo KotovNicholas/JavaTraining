@@ -1,19 +1,16 @@
-package ua.Training.Model;
+package ua.training.model.entity;
+
+import ua.training.model.sortTrack;
 
 /**
  * Created by Kontov Nicholas on 16.11.2016.
  */
-public class Track {
+public class PunkRock extends aTrack {
 
     /**
      * name of Track
      */
     private String name;
-
-    /**
-     * genre of music
-     */
-    private Genre genre;
 
     /**
      * group of Track
@@ -25,12 +22,11 @@ public class Track {
      */
     private Integer trackLength;
 
-    public Track() {
+    public PunkRock() {
     }
 
-    public Track(String name, Genre genre, String group, Integer trackLength) {
+    public PunkRock(String name, String group, Integer trackLength) {
         this.name = name;
-        this.genre = genre;
         this.group = group;
         this.trackLength = trackLength;
     }
@@ -43,14 +39,6 @@ public class Track {
         this.name = name;
     }
 
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
-
     public String getGroup() {
         return group;
     }
@@ -59,6 +47,7 @@ public class Track {
         this.group = group;
     }
 
+    @Override
     public Integer getTrackLength() {
         return trackLength;
     }
@@ -72,11 +61,11 @@ public class Track {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Track track = (Track) o;
+        PunkRock punkRock = (PunkRock) o;
 
-        if (!name.equals(track.name)) return false;
-        if (!group.equals(track.group)) return false;
-        return trackLength.equals(track.trackLength);
+        if (!name.equals(punkRock.name)) return false;
+        if (!group.equals(punkRock.group)) return false;
+        return trackLength.equals(punkRock.trackLength);
 
     }
 
@@ -90,11 +79,27 @@ public class Track {
 
     @Override
     public String toString() {
-        return "Track{\n" +
-                "name='" + name + ", \n" +
-                "genre='" + genre + ", \n" +
-                "group='" + group + ", \n" +
-                "trackLength=" + trackLength+ '\n' +
+        return "\nPunkRock{" +
+                "name='" + name + '\'' +
+                ", group='" + group + '\'' +
+                ", trackLength=" + trackLength +
                 '}';
+    }
+
+    /**
+     * return field class for sort
+     * @param s
+     * @return
+     */
+    public String getField(sortTrack s){
+        switch ( s )
+        {
+            case NAME: return getName();
+            case GROUP: return getGroup();
+            case GENRE: return "PunkRock";
+            case LENGTH: return String.valueOf(getTrackLength());
+        }
+
+        return null;
     }
 }

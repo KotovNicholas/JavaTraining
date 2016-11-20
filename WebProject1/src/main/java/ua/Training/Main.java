@@ -1,8 +1,8 @@
-package ua.Training;
+package ua.training;
 
-import ua.Training.Controler.Controller;
-import ua.Training.Model.Soundman;
-import ua.Training.View.View;
+import ua.training.controler.Controller;
+import ua.training.model.Soundman;
+import ua.training.view.View;
 
 /**
  * Created by Kontov Nicholas on 16.11.2016.

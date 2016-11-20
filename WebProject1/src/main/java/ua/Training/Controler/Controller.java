@@ -1,12 +1,13 @@
-package ua.Training.Controler;
+package ua.training.controler;
 
-import ua.Training.Model.Disk;
-import ua.Training.Model.Genre;
-import ua.Training.Model.Soundman;
-import ua.Training.Model.Track;
-import ua.Training.View.View;
+import ua.training.model.Disk;
+import ua.training.model.Soundman;
+import ua.training.model.entity.*;
+import ua.training.model.sortTrack;
+import ua.training.view.View;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 /**
  * Created by Kontov Nicholas on 16.11.2016.
@@ -30,34 +31,20 @@ public class Controller {
      */
     public void processUser(){
 
-        ArrayList<Track> tracks = new ArrayList<>();
+        ArrayList<aTrack> tracks = new ArrayList<>();
         Disk myCoolDisc;
         Integer lengthOfTracks = 0;
-        ArrayList<Track> foundTracks = new ArrayList<>();
+        ArrayList<aTrack> foundTracks = new ArrayList<>();
 
+        tracks = startInititalization();
 
-        tracks.add(new Track("Dead Man's Boots", Genre.PUNKROCK, "King and Jester", 159));
-        tracks.add(new Track("On The Way To Ainor"           , Genre.POWERMETAL, "Rhapsody Of Fire", 417));
-        tracks.add(new Track("Aces In Exile"  , Genre.POWERMETAL, "Sabaton", 262));
-        tracks.add(new Track("Bohemian Rapsody"     , Genre.ROCK, "Queen", 352));
-        tracks.add(new Track("Storm"     , Genre.CLASSIC, "Ludwig van Beethoven", 363));
-        tracks.add(new Track("Bear"            , Genre.PUNKROCK, "King and Jester", 206));
-        tracks.add(new Track("Primo Victoria ", Genre.POWERMETAL, "Sabaton", 272));
-        tracks.add(new Track("Air" , Genre.CLASSIC, "Johann Christoph Bach", 222));
-        tracks.add(new Track("Gargoyles, Angels Of Darkness ", Genre.POWERMETAL, "Rhapsody Of Fire", 1142));
-        tracks.add(new Track("We Are The Champions" , Genre.ROCK, "Queen", 186));
-        tracks.add(new Track("Jump Off a Cliff", Genre.PUNKROCK, "King and Jester", 121));
-        tracks.add(new Track("Ghost Division" , Genre.POWERMETAL, "Sabaton", 231));
-        tracks.add(new Track("Dead pirate"     , Genre.PUNKROCK, "King and Jester", 252));
+        myCoolDisc = soundman.createToDiscSongs("MyCoolDisc", tracks);
 
-        myCoolDisc = soundman.burnToDiscSongs("MyCoolDisc", tracks);
+        lengthOfTracks = getTheLengthOfTheSongs(myCoolDisc, n -> true);
 
-        lengthOfTracks = getTheLengthOfTheSongs(myCoolDisc);
+        myCoolDisc = soundman.sortTracks(myCoolDisc, sortTrack.GENRE);
 
-        myCoolDisc = soundman.sortStyle(myCoolDisc);
-
-        foundTracks = soundman.findSong(tracks, 200, 250);
-
+        foundTracks = soundman.findSongPredicate(tracks, (n) -> ((n > 200) & (n < 250)));
 
 
         //view
@@ -78,18 +65,39 @@ public class Controller {
      * @param disk
      * @return length
      */
-    public Integer getTheLengthOfTheSongs(Disk disk){
+    public Integer getTheLengthOfTheSongs(Disk disk, Predicate<Integer> p){
 
         Integer length=0;
-        ArrayList<Track> tracks = disk.getTracks();
+        ArrayList<aTrack> tracks = disk.getTracks();
 
-        for (Track i: tracks){
-            length+=i.getTrackLength();
+        for (aTrack i: tracks){
+            if (p.test(i.getTrackLength())) {
+                length+=i.getTrackLength();
+            }
+
         }
 
         return length;
     }
 
+    private ArrayList<aTrack> startInititalization(){
+        ArrayList<aTrack> tracks = new ArrayList<>();
+        tracks.add(new PunkRock("Dead Man's Boots", "King and Jester", 159));
+        tracks.add(new PowerMetal("On The Way To Ainor" , "Rhapsody Of Fire", 417));
+        tracks.add(new PowerMetal("Aces In Exile" , "Sabaton", 262));
+        tracks.add(new Rock("Bohemian Rapsody"  , "Queen", 352));
+        tracks.add(new Classic("Storm"  , "Ludwig van Beethoven", 363));
+        tracks.add(new PunkRock("Bear"         , "King and Jester", 206));
+        tracks.add(new PowerMetal("Primo Victoria ", "Sabaton", 272));
+        tracks.add(new Classic("Air", "Johann Christoph Bach", 222));
+        tracks.add(new PowerMetal("Gargoyles, Angels Of Darkness ", "Rhapsody Of Fire", 1142));
+        tracks.add(new Rock("We Are The Champions" , "Queen", 186));
+        tracks.add(new PunkRock("Jump Off a Cliff",  "King and Jester", 121));
+        tracks.add(new PowerMetal("Ghost Division" , "Sabaton", 231));
+        tracks.add(new PunkRock("Dead pirate"     ,  "King and Jester", 252));
+
+        return tracks;
+    }
 
 
 
