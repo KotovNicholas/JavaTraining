@@ -1,7 +1,5 @@
 package ua.training.model;
 
-import ua.training.model.entity.aTrack;
-
 import java.util.ArrayList;
 
 /**
@@ -17,12 +15,12 @@ public class Disk {
     /**
      * tracks of disc
      */
-    private ArrayList<aTrack> tracks;
+    private ArrayList<Track> tracks;
 
     public Disk() {
     }
 
-    public Disk(String name, ArrayList<aTrack> tracks) {
+    public Disk(String name, ArrayList<Track> tracks) {
         this.name = name;
         this.tracks = tracks;
     }
@@ -35,11 +33,11 @@ public class Disk {
         this.name = name;
     }
 
-    public ArrayList<aTrack> getTracks() {
+    public ArrayList<Track> getTracks() {
         return tracks;
     }
 
-    public void setTracks(ArrayList<aTrack> tracks) {
+    public void setTracks(ArrayList<Track> tracks) {
         this.tracks = tracks;
     }
 

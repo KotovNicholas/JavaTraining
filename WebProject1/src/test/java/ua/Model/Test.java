@@ -1,11 +1,6 @@
 package ua.model;
 
-import ua.training.model.Disk;
-import ua.training.model.Soundman;
-import ua.training.model.entity.Classic;
-import ua.training.model.entity.PunkRock;
-import ua.training.model.entity.aTrack;
-import ua.training.model.sortTrack;
+import ua.training.model.*;
 import ua.training.view.View;
 
 import java.util.ArrayList;
@@ -16,59 +11,87 @@ import static org.junit.Assert.assertEquals;
  * Created by Kontov Nicholas on 17.11.2016.
  */
 public class Test {
+    View view = new View();
+    Soundman soundman = new Soundman("Test");
+
+    @org.junit.Test
+    public void testCreateDisk(){
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        tracks.add(new Track("test1Name", Genre.PUNKROCK, "testGroup1", 1));
+        tracks.add(new Track("test2Name", Genre.POWERMETAL, "testGroup2", 2));
+
+        Disk myCooTestDisc = soundman.createToDiscSongs("MyCoolDisc", tracks);
+
+        assertEquals("Test create disk",  myCooTestDisc.getTracks().size(), 2);
+        view.printSeparator();
+        view.printMessage("Test create disk +");
+
+    }
+
+    @org.junit.Test
+    public void testLengthSongs(){
+        ArrayList<Track> tracks = new ArrayList<>();
+
+        tracks.add(new Track("test1Name", Genre.PUNKROCK, "testGroup1", 1));
+        tracks.add(new Track("test2Name", Genre.POWERMETAL, "testGroup2", 2));
+        tracks.add(new Track("test1Name", Genre.PUNKROCK, "testGroup1", 3));
+        tracks.add(new Track("test2Name", Genre.POWERMETAL, "testGroup2", 4));
+
+        Disk myCooTestDisc = soundman.createToDiscSongs("MyCoolDisc", tracks);
+        int testLength = soundman.getAllLengthSongs(myCooTestDisc);
+
+
+        assertEquals("Test get length disk", testLength , 10);
+        view.printSeparator();
+        view.printMessage("Test get length disk = "+testLength);
+
+    }
 
     @org.junit.Test
     public void testCheckSortStyle() throws Exception {
-        ArrayList<aTrack> tracks = new ArrayList<>();
-        Disk testDisc;
-        Soundman soundman = new Soundman("Test");
-        View view = new View();
-
-        tracks.add(new Classic("CLASSIC" , "", 1));
-        tracks.add(new PunkRock("PUNKROCK", "", 1));
-        tracks.add(new Classic("CLASSIC" ,  "", 1));
-        tracks.add(new PunkRock("PUNKROCK", "", 1));
+        ArrayList<Track> tracks = new ArrayList<>();
+        Disk myCooTestDisc;
 
 
-        testDisc = soundman.createToDiscSongs("testDisc", tracks);
-        testDisc = soundman.sortTracks(testDisc, sortTrack.GENRE);
+
+        tracks.add(new Track("CLASSIC" , Genre.CLASSIC, "", 1));
+        tracks.add(new Track("PUNKROCK", Genre.PUNKROCK, "", 1));
+        tracks.add(new Track("CLASSIC" , Genre.CLASSIC, "", 1));
+        tracks.add(new Track("PUNKROCK", Genre.PUNKROCK, "", 1));
+
+
+        myCooTestDisc = soundman.createToDiscSongs("testDisc", tracks);
+        myCooTestDisc = soundman.sort(myCooTestDisc, SortTrack.GENRE);
 
         view.printSeparator();
-        view.printDisk(testDisc);
+        view.printDisk(myCooTestDisc);
 
-//        if (testDisc.getTracks().get(0).getGenre().equals(Genre.PUNKROCK) & testDisc.getTracks().get(1).getGenre().equals(Genre.PUNKROCK)){
-//            assertEquals("Test sort style", 5, 5);
-//        }else{
-//            assertEquals("Test sort style", 4, 5);
-//        }
-        //assertEquals("Test sort style", testDisc.getTracks().get(0).getClass(), testDisc.getTracks().get(1).getClass());
+        assertEquals("Test sort style", myCooTestDisc.getTracks().get(0).getGenre().equals(Genre.CLASSIC), myCooTestDisc.getTracks().get(1).getGenre().equals(Genre.CLASSIC));
+
     }
 
 
     @org.junit.Test
     public void testFindSong() throws Exception {
-        ArrayList<aTrack> tracks = new ArrayList<>();
-        ArrayList<aTrack> foundTracks;
-        Soundman soundman = new Soundman("Test");
-        View view = new View();
+        ArrayList<Track> tracks = new ArrayList<>();
+        ArrayList<Track> foundTracks;
 
-        tracks.add(new PunkRock("10" , "", 10));
-        tracks.add(new PunkRock("55" ,"", 55));
-        tracks.add(new PunkRock("70" ,  "", 70));
-        tracks.add(new PunkRock("100","", 100));
 
-        foundTracks = soundman.findSongPredicate(tracks, (n) -> ((n > 50) & (n < 75)));
+
+        tracks.add(new Track("10" , null, "", 10));
+        tracks.add(new Track("55" , null, "", 55));
+        tracks.add(new Track("70" , null, "", 70));
+        tracks.add(new Track("100", null, "", 100));
+
+        foundTracks = soundman.findSongDiapason(tracks, 50, 75);
 
         view.printSeparator();
         view.printTracks(foundTracks);
 
-        if (foundTracks.get(0).getTrackLength().equals(55) & foundTracks.get(1).getTrackLength().equals(70)){
-            assertEquals("Test find song", 5, 5);
-        }else{
-            assertEquals("Test find song", 4, 5);
-        }
-
+        assertEquals("Test find song", foundTracks.get(0).getTrackLength().equals(55), foundTracks.get(1).getTrackLength().equals(70));
     }
+
 
 
 }
