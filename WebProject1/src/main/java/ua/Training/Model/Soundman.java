@@ -18,6 +18,8 @@ public class Soundman {
      */
     private String name;
 
+    private Disk disk;
+
     public Soundman() {
     }
 
@@ -25,26 +27,44 @@ public class Soundman {
         this.name = name;
     }
 
+    public Soundman(String name, Disk disk) {
+        this.name = name;
+        this.disk = disk;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Disk getDisk() {
+        return disk;
+    }
+
+    public void setDisk(Disk disk) {
+        this.disk = disk;
+    }
+
     /**
      * Rearrange songs in style
-     * @param disk - Disc where the compositions changes
      * @return disc
      */
-    public Disk sort (Disk disk, SortTrack sort){
+    public void sort (SortTrack sort){
 
-        disk.setTracks(sortTrack(disk, sort));
-        return disk;
+        this.disk.setTracks((ArrayList<Track>) sortTrack(sort));
 
     }
 
     /**
      * get get sorted list by parameter
-     * @param disk
      * @param sort
      * @return list of tracks
      */
-    public ArrayList<Track> sortTrack(Disk disk, SortTrack sort){
-        ArrayList<Track> tracks = disk.getTracks();
+    public List<Track> sortTrack(SortTrack sort){
+        List<Track> tracks = this.disk.getTracks();
         Collections.sort(tracks, Comparator.comparing(x -> x.getField(sort)));
         return tracks;
     }
@@ -53,11 +73,11 @@ public class Soundman {
         /**
          * Search tracks the length of playback
          *
-         * @param songs - tracks for search
+
          * @return songs
          */
-    public ArrayList<Track> findSongDiapason(ArrayList<Track> songs, Integer diapasonSecFirst, Integer diapasonSecSecond) {
-
+    public ArrayList<Track> findSongDiapason(Integer diapasonSecFirst, Integer diapasonSecSecond) {
+        List<Track> songs  = this.disk.getTracks();
         return findSongPredicate(songs, (n) -> ((n>=diapasonSecFirst) & (n<diapasonSecSecond)));
     }
 
@@ -80,28 +100,27 @@ public class Soundman {
      * @param tracks
      * @return Disk
      */
-    public Disk createToDiscSongs(String nameOfDisc, ArrayList<Track> tracks) {
-        return new Disk(nameOfDisc, tracks);
+    public void createToDiscSongs(String nameOfDisc, ArrayList<Track> tracks) {
+        this.disk = new Disk(nameOfDisc, tracks);
     }
 
     /**
      * getting the length of the songs
-     * @param disk
      * @return length
      */
-    public Integer getAllLengthSongs(Disk disk){
-        return getLengthSong(disk, n -> true);
+    public Integer getAllLengthSongs(){
+        return getLengthSong(n -> true);
     }
 
     /**
      * get length song by predicate
-     * @param disc
+
      * @param p
      * @return
      */
-    public Integer getLengthSong(Disk disc, Predicate<Integer> p){
+    public Integer getLengthSong(Predicate<Integer> p){
         Integer length = 0;
-        ArrayList<Track> tracks = disc.getTracks();
+        List<Track> tracks = this.disk.getTracks();
 
         for (Track i:tracks){
             if (p.test(i.getTrackLength())){

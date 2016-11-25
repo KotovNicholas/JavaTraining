@@ -27,25 +27,25 @@ public class Controller {
      */
     public void processUser(){
 
-        ArrayList<Track> tracks = new ArrayList<>();
+        ArrayList<Track> tracks;
         Disk myCoolDisc;
         Integer lengthOfTracks = 0;
         ArrayList<Track> foundTracks = new ArrayList<>();
 
         tracks = new Initialization().getInitializationTRack();
 
-        myCoolDisc = soundman.createToDiscSongs("MyCoolDisc", tracks);
+        soundman.createToDiscSongs("MyCoolDisc", tracks);
 
-        lengthOfTracks = soundman.getAllLengthSongs(myCoolDisc);
+        lengthOfTracks = soundman.getAllLengthSongs();
 
-        myCoolDisc = soundman.sort(myCoolDisc, SortTrack.GENRE);
+        soundman.sort(SortTrack.GENRE);
 
-        foundTracks = soundman.findSongDiapason(tracks, 200, 250);
+        foundTracks = soundman.findSongDiapason(200, 250);
 
 
 
         //view
-        view.printDisk(myCoolDisc);
+        view.printDisk(soundman.getDisk());
 
         view.printLengthOfTracks(lengthOfTracks);
 

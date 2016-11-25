@@ -21,9 +21,9 @@ public class Test {
         tracks.add(new Track("test1Name", Genre.PUNKROCK, "testGroup1", 1));
         tracks.add(new Track("test2Name", Genre.POWERMETAL, "testGroup2", 2));
 
-        Disk myCooTestDisc = soundman.createToDiscSongs("MyCoolDisc", tracks);
+        soundman.createToDiscSongs("MyCoolDisc", tracks);
 
-        assertEquals("Test create disk",  myCooTestDisc.getTracks().size(), 2);
+        assertEquals("Test create disk",  soundman.getDisk().getTracks().size(), 2);
         view.printSeparator();
         view.printMessage("Test create disk +");
 
@@ -38,8 +38,8 @@ public class Test {
         tracks.add(new Track("test1Name", Genre.PUNKROCK, "testGroup1", 3));
         tracks.add(new Track("test2Name", Genre.POWERMETAL, "testGroup2", 4));
 
-        Disk myCooTestDisc = soundman.createToDiscSongs("MyCoolDisc", tracks);
-        int testLength = soundman.getAllLengthSongs(myCooTestDisc);
+        soundman.createToDiscSongs("MyCoolDisc", tracks);
+        int testLength = soundman.getAllLengthSongs();
 
 
         assertEquals("Test get length disk", testLength , 10);
@@ -61,13 +61,13 @@ public class Test {
         tracks.add(new Track("PUNKROCK", Genre.PUNKROCK, "", 1));
 
 
-        myCooTestDisc = soundman.createToDiscSongs("testDisc", tracks);
-        myCooTestDisc = soundman.sort(myCooTestDisc, SortTrack.GENRE);
+        soundman.createToDiscSongs("testDisc", tracks);
+        soundman.sort(SortTrack.GENRE);
 
         view.printSeparator();
-        view.printDisk(myCooTestDisc);
+        view.printDisk(soundman.getDisk());
 
-        assertEquals("Test sort style", myCooTestDisc.getTracks().get(0).getGenre().equals(Genre.CLASSIC), myCooTestDisc.getTracks().get(1).getGenre().equals(Genre.CLASSIC));
+        assertEquals("Test sort style", soundman.getDisk().getTracks().get(0).getGenre().equals(Genre.CLASSIC), soundman.getDisk().getTracks().get(1).getGenre().equals(Genre.CLASSIC));
 
     }
 
@@ -84,7 +84,7 @@ public class Test {
         tracks.add(new Track("70" , null, "", 70));
         tracks.add(new Track("100", null, "", 100));
 
-        foundTracks = soundman.findSongDiapason(tracks, 50, 75);
+        foundTracks = soundman.findSongDiapason( 50, 75);
 
         view.printSeparator();
         view.printTracks(foundTracks);

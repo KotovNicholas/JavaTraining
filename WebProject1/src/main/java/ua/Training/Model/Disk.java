@@ -1,6 +1,7 @@
 package ua.training.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kontov Nicholas on 16.11.2016.
@@ -15,12 +16,12 @@ public class Disk {
     /**
      * tracks of disc
      */
-    private ArrayList<Track> tracks;
+    private List <Track> tracks;
 
     public Disk() {
     }
 
-    public Disk(String name, ArrayList<Track> tracks) {
+    public Disk(String name, List<Track> tracks) {
         this.name = name;
         this.tracks = tracks;
     }
@@ -33,7 +34,7 @@ public class Disk {
         this.name = name;
     }
 
-    public ArrayList<Track> getTracks() {
+    public List<Track> getTracks() {
         return tracks;
     }
 
