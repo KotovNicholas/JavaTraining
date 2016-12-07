@@ -74,10 +74,6 @@ class ShapeFactory{
             shapes.put(shapeName, shape);
         }
         return shape;
-
-
-
-
     }
 }
 
