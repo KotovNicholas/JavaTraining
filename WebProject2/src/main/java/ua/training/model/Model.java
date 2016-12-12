@@ -54,10 +54,10 @@ public class Model {
 
 
             if(isPunctuationMark(character)){
-                //compositeFactory.getComponent("word", component);
+                //compositeFactory.("word", component);
             }
 
-            component.add(compositeFactory.getComponent("symbol", character));
+            component.add(compositeFactory.getComponentSymbol("symbol", character));
 
             lastChar = character;
 

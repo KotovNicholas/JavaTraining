@@ -6,6 +6,8 @@ package ua.training.model.entity;
 public class Symbol  implements Components {
     private Character character;
 
+    private Type type = Type.SYMBOL;
+
     public Symbol() {
     }
 
@@ -21,6 +23,10 @@ public class Symbol  implements Components {
         this.character = character;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -28,13 +34,16 @@ public class Symbol  implements Components {
 
         Symbol symbol = (Symbol) o;
 
-        return character.equals(symbol.character);
+        if (!character.equals(symbol.character)) return false;
+        return type == symbol.type;
 
     }
 
     @Override
     public int hashCode() {
-        return character.hashCode();
+        int result = character.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 
     @Override

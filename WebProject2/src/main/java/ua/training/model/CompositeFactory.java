@@ -13,7 +13,7 @@ import java.util.Map;
 public class CompositeFactory {
     private static final Map<Character, Components> components = new HashMap<>();
 
-    public Components getComponent(String nameClass, Character character) {
+    public Components getComponentSymbol(String nameClass, Character character) {
 
         Components component = components.get(character);
         if (component == null) {

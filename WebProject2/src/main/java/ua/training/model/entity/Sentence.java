@@ -11,6 +11,8 @@ import java.util.List;
 public class Sentence  implements Components {
     private List<Components> components = new ArrayList<>();
 
+    private Type type = Type.SENTENCE;
+
     public Sentence() {
     }
 
@@ -33,13 +35,16 @@ public class Sentence  implements Components {
 
         Sentence sentence = (Sentence) o;
 
-        return components.equals(sentence.components);
+        if (!components.equals(sentence.components)) return false;
+        return type == sentence.type;
 
     }
 
     @Override
     public int hashCode() {
-        return components.hashCode();
+        int result = components.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 
     @Override

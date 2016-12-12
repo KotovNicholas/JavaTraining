@@ -12,6 +12,8 @@ public class Word  implements Components {
      */
     private List<Symbol> word;
 
+    private Type type = Type.WORD;
+
     public Word() {
     }
 
@@ -27,27 +29,33 @@ public class Word  implements Components {
         this.word = symbols;
     }
 
+    public Type getType() {
+        return type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Word word = (Word) o;
+        Word word1 = (Word) o;
 
-        return word.equals(word.word);
+        if (!word.equals(word1.word)) return false;
+        return type == word1.type;
 
     }
 
     @Override
     public int hashCode() {
-        return word.hashCode();
+        int result = word.hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 
     @Override
     public String toString() {
         return "Word{" +
-                "symbols=" + word +
+                "word=" + word +
                 '}';
     }
-
 }
