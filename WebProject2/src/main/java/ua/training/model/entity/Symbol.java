@@ -49,7 +49,12 @@ public class Symbol  implements Components {
     @Override
     public String toString() {
         return "Symbol{" +
-                "character=" + character +
+                "character=" + String.valueOf(character) +
                 '}';
+    }
+
+    @Override
+    public void PrintText() {
+        System.out.print(character.toString());
     }
 }

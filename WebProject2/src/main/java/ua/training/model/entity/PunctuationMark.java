@@ -29,5 +29,11 @@ public enum PunctuationMark implements Components {
     public String toString() {
         return super.toString();
     }
+
+    @Override
+    public void PrintText() {
+        System.out.print(super.toString());
+
+    }
 }
 

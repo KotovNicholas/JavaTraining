@@ -70,4 +70,9 @@ public class Sentence  implements Components {
         components.remove(component);
     }
 
+
+    @Override
+    public void PrintText() {
+        components.forEach(n->n.PrintText());
+    }
 }

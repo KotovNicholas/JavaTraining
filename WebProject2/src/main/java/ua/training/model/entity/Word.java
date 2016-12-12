@@ -10,22 +10,22 @@ public class Word  implements Components {
     /**
      * symbols of word
      */
-    private List<Symbol> word;
+    private List<Components> word;
 
     private Type type = Type.WORD;
 
     public Word() {
     }
 
-    public Word(List<Symbol> symbols) {
+    public Word(List<Components> symbols) {
         this.word = symbols;
     }
 
-    public List<Symbol> getSymbols() {
+    public List<Components> getSymbols() {
         return word;
     }
 
-    public void setSymbols(List<Symbol> symbols) {
+    public void setSymbols(List<Components> symbols) {
         this.word = symbols;
     }
 
@@ -46,16 +46,14 @@ public class Word  implements Components {
     }
 
     @Override
-    public int hashCode() {
-        int result = word.hashCode();
-        result = 31 * result + type.hashCode();
-        return result;
+    public String toString() {
+
+        word.forEach(System.out::print);
+        return "";
     }
 
     @Override
-    public String toString() {
-        return "Word{" +
-                "word=" + word +
-                '}';
+    public void PrintText() {
+        word.forEach(n->n.PrintText());
     }
 }
