@@ -1,4 +1,4 @@
-package ua.training.controler;
+package ua.training.controler.readerFile;
 
 /**
  * Created by Nicholas Kotov on 05.12.2016.

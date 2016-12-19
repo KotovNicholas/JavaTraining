@@ -1,4 +1,4 @@
-package ua.training.controler;
+package ua.training.controler.readerFile;
 
 import java.io.FileReader;
 import java.io.IOException;

@@ -1,11 +1,13 @@
 package ua.training.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Nicholas Kotov on 05.12.2016.
  */
-public class Symbol  implements Components {
+public class Symbol implements AllText {
     private Character character;
-
     private Type type = Type.SYMBOL;
 
     public Symbol() {
@@ -19,12 +21,17 @@ public class Symbol  implements Components {
         return character;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-
+    @Override
     public Type getType() {
         return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
     @Override
@@ -34,27 +41,45 @@ public class Symbol  implements Components {
 
         Symbol symbol = (Symbol) o;
 
-        if (!character.equals(symbol.character)) return false;
-        return type == symbol.type;
+        return character.equals(symbol.character);
 
     }
 
     @Override
     public int hashCode() {
-        int result = character.hashCode();
-        result = 31 * result + type.hashCode();
-        return result;
+        return character.hashCode();
     }
 
     @Override
     public String toString() {
         return "Symbol{" +
-                "character=" + String.valueOf(character) +
+                "character=" + character +
                 '}';
     }
 
-    @Override
-    public void PrintText() {
-        System.out.print(character.toString());
+
+
+    public void show() {
+        System.out.print(character);
     }
+
+    public List<AllText> getElement() {
+        List<AllText> result = new ArrayList<>();
+        result.add(this);
+        return result;
+    }
+
+    @Override
+    public List<Composite> getContentType(Type type) {
+        List<Composite> allTextResult1 = new ArrayList<>();
+        Composite comp = new Composite();
+        if (this.type==type){
+            comp.addComponent(this);
+            allTextResult1.add(comp);
+        }
+
+        return allTextResult1;
+
+    }
+
 }

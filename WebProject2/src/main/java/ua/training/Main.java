@@ -1,8 +1,8 @@
 package ua.training;
 
 import ua.training.controler.Controller;
-import ua.training.controler.ReaderFile;
 import ua.training.model.Model;
+import ua.training.model.ParceText;
 import ua.training.view.View;
 
 
@@ -18,8 +18,6 @@ public class Main {
         Controller controller = new Controller(model, view);
         // Run
         controller.processUser();
-
-        //System.out.println(new ReaderFile().readFile());
 
     }
 }
